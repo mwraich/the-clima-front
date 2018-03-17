@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-// import moment from "moment";
+import moment from "moment";
 import {
   TimeBox, // A wrapper (div) for this time box
   LargeText, // Display large text in box
@@ -23,7 +23,7 @@ export default class Time extends React.Component {
   render() {
     return (
       <TimeBox>
-        <LargeText>{this.props.time}</LargeText>
+        <LargeText>{moment(this.props.time).format('h:mm')}</LargeText>
         <SmallText>am</SmallText>
       </TimeBox>
     )

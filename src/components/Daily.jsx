@@ -20,11 +20,11 @@ format:
 
 export default class Daily extends React.Component {
 
-  // static propTypes = {
-  //   date: PropTypes.string.isRequired,
-  //   low: PropTypes.number.isRequired,
-  //   high: PropTypes.number.isRequired
-  // };
+  static propTypes = {
+    date: PropTypes.string.isRequired,
+    low: PropTypes.number.isRequired,
+    high: PropTypes.number.isRequired
+  };
 
   render() {
     return (

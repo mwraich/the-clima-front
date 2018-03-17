@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import {
   NavBar, // The wrapper for the entire nav (nav element)
   HomeLink, // A link (a tag) which will take the user home
@@ -16,7 +16,6 @@ props:
 export default class Nav extends React.Component {
   render() {
     return (
-
       <NavBar>
         <HomeLink href="#">
           <HomeImage src={homeImage} />

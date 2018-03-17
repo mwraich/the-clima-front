@@ -1,5 +1,5 @@
 import React from "react";
-// import PropTypes from "prop-types";
+import PropTypes from "prop-types";
 import {
   NavBar, // The wrapper for the entire nav (nav element)
   HomeLink, // A link (a tag) which will take the user home
@@ -13,14 +13,19 @@ props:
 - city (string)
 */
 
-export default class Nav extends React.Component {
+export default class Nav extends React.Component
+{
+  static propTypes = {
+    city: PropTypes.string.isRequired
+  };
+
   render() {
     return (
       <NavBar>
         <HomeLink href="#">
           <HomeImage src={homeImage} />
         </HomeLink>
-        <CityName>Toronto</CityName>
+        <CityName>{this.props.city}</CityName>
       </NavBar>
     );
   }

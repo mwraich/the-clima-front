@@ -71,7 +71,7 @@ export default class City extends React.Component {
     return (
       <CityContainer>
         <CityBackground style={backgroundStyles} />
-        <Nav />
+        <Nav city={weather.city} />
         <Temperature temp={weather.current.temp} city={weather.city}/>
         <Time time={time}/>
         <Today date={weather.current.date}/>

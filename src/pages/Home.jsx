@@ -1,6 +1,6 @@
 import React from "react";
 import PlacesAutocomplete from "react-places-autocomplete";
-import { inject, observer } from "mobx-react";
+// import { inject, observer } from "mobx-react";
 import {
   Container, // Wrapper (div) for all the content in this component
   Logo, // The logo image (img)
@@ -14,4 +14,33 @@ import {
 
 import logo from "../images/theclima.svg";
 
-export default () => "Home";
+export default class Home extends React.Component {
+  state = {
+    searchValue: ""
+  }
+
+  render() {
+    return (
+      <Container>
+        <Logo src={logo} />
+
+        <Form>
+          <Label>Search For Your City</Label>
+          <PlacesAutocomplete inputProps={{
+            value: this.state.searchValue,
+            onChange: newValue => {
+              this.setState({
+                searchValue: newValue
+              });
+            }
+          }}
+          styles={autoComplete}
+          onSelect={selectedValue => {
+            this.props.history.push(`/${selectedValue}`)
+          }}
+          />
+        </Form>
+      </Container>
+    );
+  }
+}

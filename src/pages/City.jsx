@@ -1,6 +1,6 @@
 import React from "react";
-import acios from "axios";
-import data from "../sample-data";
+import axios from "axios";
+// import data from "../sample-data";
 
 import Nav from "../components/Nav";
 import Temperature from "../components/Temperature";
@@ -30,14 +30,21 @@ export default class City extends React.Component {
         time: new Date().toISOString()
       });
     }, 1000); //this is 1s, 1000ms
+
+    this.fetchWeatherData();
+  }
+
+  fetchWeatherData = async () => {
+    const response = await axios.get
+    ("https://abnormal-weather-api.herokuapp.com/cities/search",
+      {
+      params: { city: "Toronto"}
+      }
+    );
     this.setState({
-      weather: data
+      weather: response.data
     });
-  }
-
-  fetchWeatherData = () => {
-
-  }
+  };
 
   render() {
     const { weather, time } = this.state;

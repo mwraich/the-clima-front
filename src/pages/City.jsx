@@ -40,7 +40,7 @@ export default class City extends React.Component {
       const response = await axios.get
       ("https://abnormal-weather-api.herokuapp.com/cities/search",
         {
-        params: { city: "Toronto"}
+        params: { city: this.props.match.params.city }
         }
       );
       this.setState({

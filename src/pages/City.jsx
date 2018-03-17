@@ -64,11 +64,13 @@ export default class City extends React.Component {
       )
     }
 
-    // const backgroundStyles = {backgroundImage:}
+    const backgroundStyles = {
+      backgroundImage: `url(${weather.image_url})`
+    }
+
     return (
       <CityContainer>
-        <CityBackground />
-
+        <CityBackground style={backgroundStyles} />
         <Nav />
         <Temperature temp={weather.current.temp} city={weather.city}/>
         <Time time={time}/>

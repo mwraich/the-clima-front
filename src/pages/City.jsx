@@ -5,7 +5,7 @@ import data from "../sample-data";
 import Nav from "../components/Nav";
 import Temperature from "../components/Temperature";
 import Time from "../components/Time";
-// import Today from "../components/Today";
+import Today from "../components/Today";
 // import Daily from "../components/Daily";
 // import Chat from "../components/Chat";
 
@@ -48,6 +48,7 @@ export default class City extends React.Component {
         <Nav />
         <Temperature temp={this.state.weather.current.temp} city={this.state.weather.city}/>
         <Time time={this.state.time}/>
+        <Today date={this.state.weather.current.date}/>
       </CityContainer>
     );
   }

@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import { Motion, spring } from "react-motion";
 // import data from "../sample-data";
 
 import Nav from "../components/Nav";
@@ -20,7 +21,8 @@ export default class City extends React.Component {
   state = {
     weather: null,
     weatherError: false,
-    time: new Date().toISOString()
+    time: new Date().toISOString(),
+    showForecast: false
   };
 
   // lifecyclefunction, similar to rails before_save, after_save callbacks
@@ -75,15 +77,33 @@ export default class City extends React.Component {
         <Temperature temp={weather.current.temp} city={weather.city}/>
         <Time time={time}/>
         <Today date={weather.current.date}/>
-        <Forecast>
-          {weather.forecast.map(daily => (
-          <Daily
-            key={daily.date}
-            date={daily.date}
-            low={daily.low}
-            high={daily.high}/>
-          ))}
-        </Forecast>
+
+        {/* Motion does not want a div, it wants a function, so pass a
+        function that returns a div */}
+        <Motion
+          defaultStyle={{x: -200, opacity: 0}}
+          style={{
+            x: spring(0, { stiffness: 170, damping: 10 }),
+            opacity: spring(1, {stiffness: 30, damping: 26})
+          }}
+        >
+          {style => (
+            <Forecast
+              style={{
+                transform: `translateX(${style.x}px)`,
+                opacity: style.opacity
+            }}
+            >
+              {weather.forecast.map(daily => (
+              <Daily
+                key={daily.date}
+                date={daily.date}
+                low={daily.low}
+                high={daily.high}/>
+              ))}
+            </Forecast>
+          )}
+        </Motion>
       </CityContainer>
     );
   }

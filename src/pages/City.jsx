@@ -37,6 +37,7 @@ export default class City extends React.Component {
   }
 
   render() {
+    const { weather, time } = this.state;
     if (!this.state.weather) {
       return (
         <Loading>Loading...</Loading>
@@ -46,9 +47,9 @@ export default class City extends React.Component {
       <CityContainer>
         <CityBackground />
         <Nav />
-        <Temperature temp={this.state.weather.current.temp} city={this.state.weather.city}/>
-        <Time time={this.state.time}/>
-        <Today date={this.state.weather.current.date}/>
+        <Temperature temp={weather.current.temp} city={weather.city}/>
+        <Time time={time}/>
+        <Today date={weather.current.date}/>
       </CityContainer>
     );
   }

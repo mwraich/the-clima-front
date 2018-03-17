@@ -15,12 +15,17 @@ export default class Temperature extends React.Component
 {
   static propTypes = {
     temp: PropTypes.number.isRequired,
-    city: PropTypes.string.isRequired
+    city: PropTypes.string.isRequired,
+    toggleForecast: PropTypes.func.isRequired
   };
 
   render() {
     return (
-      <TemperatureBox>
+      <TemperatureBox
+        onClick={() => {
+          this.props.toggleForecast()
+        }}
+      >
         <LargeText> {this.props.temp}&deg;</LargeText>
         <SmallText> {this.props.city} </SmallText>
       </TemperatureBox>

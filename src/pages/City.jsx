@@ -74,7 +74,15 @@ export default class City extends React.Component {
       <CityContainer>
         <CityBackground style={backgroundStyles} />
         <Nav city={weather.city} />
-        <Temperature temp={weather.current.temp} city={weather.city}/>
+        <Temperature
+          temp={weather.current.temp}
+          city={weather.city}
+          toggleForecast={() => {
+            this.setState({
+              showForecast: !this.state.showForecast
+            });
+          }}
+        />
         <Time time={time}/>
         <Today date={weather.current.date}/>
 
@@ -83,8 +91,8 @@ export default class City extends React.Component {
         <Motion
           defaultStyle={{x: -200, opacity: 0}}
           style={{
-            x: spring(0, { stiffness: 170, damping: 10 }),
-            opacity: spring(1, {stiffness: 30, damping: 26})
+            x: spring(this.state.showForecast ? 0 : -200),
+            opacity: spring(this.state.showForecast ? 1 : 0)
           }}
         >
           {style => (

@@ -24,7 +24,7 @@ export default class Time extends React.Component {
     return (
       <TimeBox>
         <LargeText>{moment(this.props.time).format('h:mm')}</LargeText>
-        <SmallText>am</SmallText>
+        <SmallText>{moment(this.props.time).format("a")}</SmallText>
       </TimeBox>
     )
   }

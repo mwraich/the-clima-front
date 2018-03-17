@@ -23,6 +23,16 @@ export default class City extends React.Component {
     time: new Date().toISOString()
   };
 
+  // lifecyclefunction, similar to rails before_save, after_save callbacks
+  // when want to change value of state call setState
+  componentDidMount() {
+    setInterval(() => {
+      this.setState({
+        time: new Date().toISOString()
+      });
+    }, 1000) //this is 1s, 1000ms
+  }
+
   render() {
     return (
       <CityContainer>

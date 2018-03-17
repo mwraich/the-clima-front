@@ -1,6 +1,6 @@
 import React from "react";
 
-// import data from "../sample-data";
+import data from "../sample-data";
 
 import Nav from "../components/Nav";
 import Temperature from "../components/Temperature";
@@ -18,27 +18,35 @@ import {
 
 export default class City extends React.Component {
   state = {
-    temp: -7,
-    city: "Toronto",
+    weather: null,
     time: new Date().toISOString()
   };
 
   // lifecyclefunction, similar to rails before_save, after_save callbacks
   // when want to change value of state call setState
   componentDidMount() {
+
     setInterval(() => {
       this.setState({
         time: new Date().toISOString()
       });
-    }, 1000) //this is 1s, 1000ms
+    }, 1000); //this is 1s, 1000ms
+    this.setState({
+      weather: data
+    });
   }
 
   render() {
+    if (!this.state.weather) {
+      return (
+        <Loading>Loading...</Loading>
+      )
+    }
     return (
       <CityContainer>
         <CityBackground />
         <Nav />
-        <Temperature temp={this.state.temp} city={this.state.city}/>
+        <Temperature temp={this.state.weather.current.temp} city={this.state.weather.city}/>
         <Time time={this.state.time}/>
       </CityContainer>
     );

@@ -4,7 +4,7 @@ import React from "react";
 
 import Nav from "../components/Nav";
 import Temperature from "../components/Temperature";
-// import Time from "../components/Time";
+import Time from "../components/Time";
 // import Today from "../components/Today";
 // import Daily from "../components/Daily";
 // import Chat from "../components/Chat";
@@ -29,6 +29,7 @@ export default class City extends React.Component {
         <CityBackground />
         <Nav />
         <Temperature temp={this.state.temp} city={this.state.city}/>
+        <Time time={this.state.time}/>
       </CityContainer>
     );
   }

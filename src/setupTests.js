@@ -17,7 +17,7 @@ global.shallow = shallow;
 global.render = render;
 global.mount = mount;
 global.sinon = sinon;
-
+//Imports these values everywhere, part of test set up
 // Fail tests on any warning
 console.error = message => {
   throw new Error(message);

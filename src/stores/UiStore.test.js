@@ -1,3 +1,9 @@
 import UiStore from "./UiStore";
 
-it("toggles forecast flag", () => {});
+it("toggles forecast flag", () => {
+  UiStore.showForecast = false;
+
+  UiStore.toggleForecast();
+
+  expect(UiStore.showForecast).toEqual(true);
+});

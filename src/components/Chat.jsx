@@ -1,5 +1,6 @@
 import React from "react";
 // import PropTypes from "prop-types";
+import { inject, observer } from "mobx-react";
 
 import {
   ChatContainer, // Wraps the entire chat component's content (div)
@@ -21,12 +22,17 @@ import chatImage from "../images/chat.png";
 /* props:
 - city (string)
 */
+@inject("UiStore")
+@observer
 
 export default class Chat extends React.Component {
   render() {
     return (
-      <ChatContainer>
-        <ChatTrigger>
+      <ChatContainer chat={this.props.UiStore.showChat}>
+        <ChatTrigger onClick={() => {
+            this.props.UiStore.toggleChat();
+          }}
+        >
           <TriggerImage src={chatImage} />
         </ChatTrigger>
       </ChatContainer>

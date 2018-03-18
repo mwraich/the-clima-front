@@ -3,6 +3,7 @@ import { breakpoints } from "./settings";
 
 const ChatContainer = styled.section`
   position: absolute;
+  z-index: 1;
   left: 100vw;
   right: 0px;
   top: 0px;

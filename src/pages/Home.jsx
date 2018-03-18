@@ -1,4 +1,6 @@
 import React from "react";
+
+import { TweenMax } from "gsap"; //Has timelinelite etc, for animations one after another
 import PlacesAutocomplete from "react-places-autocomplete";
 // import { inject, observer } from "mobx-react";
 import {
@@ -17,12 +19,22 @@ import logo from "../images/theclima.svg";
 export default class Home extends React.Component {
   state = {
     searchValue: ""
+  };
+
+  componentDidMount() {
+    TweenMax.fromTo(
+      "#logo",
+      1,
+      {opacity: 0, scale: 0.5},
+      {opacity: 1, scale: 1}
+    );
+    // this id, for 1 s, change to this
   }
 
   render() {
     return (
       <Container>
-        <Logo src={logo} />
+        <Logo id="logo" src={logo} />
 
         <Form>
           <Label>Search For Your City</Label>

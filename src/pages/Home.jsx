@@ -1,6 +1,7 @@
 import React from "react";
 
 import { TweenMax } from "gsap"; //Has timelinelite etc, for animations one after another
+import axios from "axios";
 import PlacesAutocomplete from "react-places-autocomplete";
 // import { inject, observer } from "mobx-react";
 import {
@@ -37,9 +38,23 @@ export default class Home extends React.Component {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(position =>
       {
-        console.log(position);
+        const { latitude, longitude } = position.coords;
+        // same as this but more concise const latitude = position.coords.latitude
+        this.fetchNearbyCities(latitude, longitude);
+        // this.fetchNearbyCities(43, -74); incase geolocation not working
       });
     }
+  };
+
+  fetchNearbyCities = async (latitude, longitude) => {
+    const response = await axios.get(
+      "https://abnormal-weather-api.herokuapp.com/cities/nearby",
+      { params: { latitude, longitude } }
+    );
+
+    this.setState({
+      nearby: response.data
+    })
   };
 // Use innerRef because you want something within the thing you're referencing
 // Otherwise would use ref
@@ -68,6 +83,14 @@ export default class Home extends React.Component {
           }}
           />
         </Form>
+
+        <NearbyCities>
+          {this.state.nearby.map((city) => (
+            <NearbyCity key={city.id}>
+              <NearbyLink to={`/${city.name}`}>{city.name}</NearbyLink>
+            </NearbyCity>
+          ))}
+        </NearbyCities>
       </Container>
     );
   }

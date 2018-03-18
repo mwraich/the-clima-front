@@ -17,7 +17,7 @@ import {
 } from "../elements/chat";
 
 import chatImage from "../images/chat.png";
-// import database from "../firebase";
+import database from "../firebase";
 
 /* props:
 - city (string)
@@ -26,6 +26,21 @@ import chatImage from "../images/chat.png";
 @observer
 
 export default class Chat extends React.Component {
+  handleSend = (e) => {
+    e.preventDefault();
+
+    const message = database.ref(`/cities/${this.props.city}`).push();
+
+    message.set({
+        user: this.userInput.value,
+        message: this.textInput.value,
+        time: new Date().getTime()
+    })
+    this.textInput.value = "";
+    this.textInput.focus();
+
+  };
+
   render() {
     return (
       <ChatContainer chat={this.props.UiStore.showChat}>
@@ -35,6 +50,18 @@ export default class Chat extends React.Component {
         >
           <TriggerImage src={chatImage} />
         </ChatTrigger>
+
+        <Form onSubmit={(e) => this.handleSend(e)}>
+          <TextInput
+            placeholder="hello"
+            innerRef= { input => (this.textInput = input)}
+          />
+          <UserInput
+            placeholder="What is your name?"
+            innerRef= { input => (this.userInput = input)}
+          />
+          <SendButton>Send</SendButton>
+        </Form>
       </ChatContainer>
     );
   }

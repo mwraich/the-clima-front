@@ -17,7 +17,7 @@ class WeatherStore {
         params: { city }
         }
       );
-      
+
       this.weather = response.data;
     } catch(error) {
         this.weatherError = true

@@ -23,8 +23,6 @@ import {
 
 export default class City extends React.Component {
   state = {
-    weather: null,
-    weatherError: false,
     time: new Date().toISOString()
   };
 
@@ -37,33 +35,19 @@ export default class City extends React.Component {
       });
     }, 1000); //this is 1s, 1000ms
 
-    this.fetchWeatherData();
+    this.props.WeatherStore.fetchWeatherData(
+      this.props.match.params.city
+    );
   }
 
-  fetchWeatherData = async () => {
-    try {
-      const response = await axios.get
-      ("https://abnormal-weather-api.herokuapp.com/cities/search",
-        {
-        params: { city: this.props.match.params.city }
-        }
-      );
-      this.setState({
-        weather: response.data
-      });
-    } catch(error) {
-      this.setState({
-        weatherError: true
-      });
-    }
-  };
-
   render() {
-    const { weather, time } = this.state;
-    if (this.state.weatherError) {
+    const { time } = this.state;
+    const { weather, weatherError } = this.props.WeatherStore;
+
+    if (weatherError) {
       return <Loading>Whoops...City Not found</Loading>
     }
-    if (!this.state.weather) {
+    if (!weather) {
       return (
         <Loading>Loading...</Loading>
       )

@@ -4,10 +4,25 @@ import axios from "axios";
 class WeatherStore {
   @observable time = new Date().toISOString();
   @observable weather = null;
-  @observable loadWeatherError = false;
+  @observable weatherError = false;
 
   @action tick = () => {};
-  @action fetchWeather = async city => {};
+
+  @action
+  fetchWeatherData = async city => {
+    try {
+      const response = await axios.get
+      ("https://abnormal-weather-api.herokuapp.com/cities/search",
+        {
+        params: { city }
+        }
+      );
+      
+      this.weather = response.data;
+    } catch(error) {
+        this.weatherError = true
+    }
+  };
 }
 
 export default new WeatherStore();

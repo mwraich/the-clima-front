@@ -9,7 +9,7 @@ import Temperature from "../components/Temperature";
 import Time from "../components/Time";
 import Today from "../components/Today";
 import Daily from "../components/Daily";
-// import Chat from "../components/Chat";
+import Chat from "../components/Chat";
 
 import {
   Loading, // small div to wrap text when loading data
@@ -61,6 +61,9 @@ export default class City extends React.Component {
       <CityContainer>
         <CityBackground style={backgroundStyles} />
         <Nav city={weather.city} />
+
+        <Chat city={weather.city} />
+
         <Temperature
           temp={weather.current.temp}
           city={weather.city}

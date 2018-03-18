@@ -18,7 +18,8 @@ import logo from "../images/theclima.svg";
 
 export default class Home extends React.Component {
   state = {
-    searchValue: ""
+    searchValue: "",
+    nearby: []
   };
 
   componentDidMount() {
@@ -29,7 +30,17 @@ export default class Home extends React.Component {
       {opacity: 1, scale: 1}
     );
     // this id, for 1 s, change to this
+    this.loadNearby();
   }
+  // navigator is global term for browser
+  loadNearby = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(position =>
+      {
+        console.log(position);
+      });
+    }
+  };
 // Use innerRef because you want something within the thing you're referencing
 // Otherwise would use ref
   render() {

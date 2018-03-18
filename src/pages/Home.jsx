@@ -23,18 +23,23 @@ export default class Home extends React.Component {
 
   componentDidMount() {
     TweenMax.fromTo(
-      "#logo",
+      this.logoRef,
       1,
       {opacity: 0, scale: 0.5},
       {opacity: 1, scale: 1}
     );
     // this id, for 1 s, change to this
   }
-
+// Use innerRef because you want something within the thing you're referencing
+// Otherwise would use ref
   render() {
     return (
       <Container>
-        <Logo id="logo" src={logo} />
+        <Logo
+          innerRef={ element => {
+          this.logoRef = element
+        }}
+         src={logo} />
 
         <Form>
           <Label>Search For Your City</Label>

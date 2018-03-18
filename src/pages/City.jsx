@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { Motion, spring } from "react-motion";
+import { inject, observer } from "mobx-react";
 // import data from "../sample-data";
 
 import Nav from "../components/Nav";
@@ -17,12 +18,14 @@ import {
   Forecast // Wrapper for when showing the Daily components
 } from "../elements/city";
 
+@inject("UiStore", "WeatherStore")
+@observer
+
 export default class City extends React.Component {
   state = {
     weather: null,
     weatherError: false,
-    time: new Date().toISOString(),
-    showForecast: false
+    time: new Date().toISOString()
   };
 
   // lifecyclefunction, similar to rails before_save, after_save callbacks
@@ -78,9 +81,7 @@ export default class City extends React.Component {
           temp={weather.current.temp}
           city={weather.city}
           toggleForecast={() => {
-            this.setState({
-              showForecast: !this.state.showForecast
-            });
+            this.props.UiStore.toggleForecast()
           }}
         />
         <Time time={time}/>
@@ -91,8 +92,8 @@ export default class City extends React.Component {
         <Motion
           defaultStyle={{x: -200, opacity: 0}}
           style={{
-            x: spring(this.state.showForecast ? 0 : -200),
-            opacity: spring(this.state.showForecast ? 1 : 0)
+            x: spring(this.props.UiStore.showForecast ? 0 : -200),
+            opacity: spring(this.props.UiStore.showForecast ? 1 : 0)
           }}
         >
           {style => (

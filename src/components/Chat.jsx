@@ -22,10 +22,21 @@ import database from "../firebase";
 /* props:
 - city (string)
 */
-@inject("UiStore")
+@inject("UiStore", "WeatherStore")
 @observer
 
 export default class Chat extends React.Component {
+  componentDidMount() {
+    database.ref(`/cities/${this.props.city}`)
+      .limitToLast(25).on(
+        "value",
+        (snapshot) => {
+          const messages = Object.values(snapshot.val() || {});
+          console.log(messages)
+          this.props.WeatherStore.setMessages(messages);
+        });
+  }
+
   handleSend = (e) => {
     e.preventDefault();
 
@@ -38,7 +49,6 @@ export default class Chat extends React.Component {
     })
     this.textInput.value = "";
     this.textInput.focus();
-
   };
 
   render() {
@@ -51,14 +61,25 @@ export default class Chat extends React.Component {
           <TriggerImage src={chatImage} />
         </ChatTrigger>
 
+        <MessageList>
+          {this.props.WeatherStore.messages.map(message => (
+            (
+              <MessageItem key={message.time}>
+                <MessageName>{message.user}</MessageName>
+                <MessageText>{message.message}</MessageText>
+              </MessageItem>
+            )
+          ))}
+        </MessageList>
+
         <Form onSubmit={(e) => this.handleSend(e)}>
           <TextInput
             placeholder="hello"
-            innerRef= { input => (this.textInput = input)}
+            innerRef={ input => (this.textInput = input)}
           />
           <UserInput
             placeholder="What is your name?"
-            innerRef= { input => (this.userInput = input)}
+            innerRef={ input => (this.userInput = input)}
           />
           <SendButton>Send</SendButton>
         </Form>

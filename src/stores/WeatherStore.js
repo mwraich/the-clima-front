@@ -5,8 +5,13 @@ class WeatherStore {
   @observable time = new Date().toISOString();
   @observable weather = null;
   @observable weatherError = false;
+  @observable messages = [];
 
-  @action tick = () => {};
+  @action
+  setMessages = messages => {
+    this.messages = messages;
+  };
+
 
   @action
   fetchWeatherData = async city => {
